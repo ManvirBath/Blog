@@ -1,0 +1,48 @@
+<%- include("partials/header.ejs") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Food2crazy | Home</title>
+</head>
+<body>
+    <div class = "home-container">
+        <form action="/create_post" class="post-form" method="post"> 
+            <div class = "form-group">
+                <label for="postContent">
+                    <textarea name="postContent" placeholder="What's on your mind?" cols="40" rows="10"></textarea>
+                </label>
+            </div>
+
+            <button type="submit" class = "btn"> Create Post </button>
+        </form>
+        <div class="header-container">
+            <h2 class="posts-header">Blog</h2>
+        </div>
+        <div class = "post-content">
+            <ul class = "posts">
+                <% posts.forEach(post => { %>
+                    <li class ="list-group-item">
+                        <p><%= post.content %></p>
+                        <form action="/posts/ <%= post.id %>/edit" method="POST"> 
+                            <input type="hidden" name="content" placeholder="Edit">
+                            <button type="submit"`Edit>Save</button>
+                        </form>
+                        <form action="/posts/ <%= post.id %>/delete" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </li>
+                <% }); %>
+            </ul> 
+        </div>
+    </div>
+    <footer>
+        <!-- Include the footer content -->
+        <%- include("partials/footer.ejs") %>
+    </footer>
+</body>
+</html>
